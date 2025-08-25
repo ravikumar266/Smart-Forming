@@ -32,12 +32,12 @@ def home():
 @app.post("/predict")
 def predict(data: CropInput):
     if model is None:
-        raise HTTPException(status_code=500, detail="Model not loaded. Please upload 'model.pkl'.")
+        raise HTTPException(status_code=500, detail="Model not loaded")
 
     try:
         input_df = pd.DataFrame([data.dict()])
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Invalid input format: {str(e)}")
+        raise HTTPException(status_code=400, detail=f"Invalid input: {str(e)}")
 
     try:
         prediction = model.predict(input_df)[0]
